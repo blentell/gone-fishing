@@ -3,6 +3,8 @@
 const prompt = require("prompt-sync")({ sigint: true });
 const chalk = require("chalk");
 console.clear();
+// Its art.  ASCII art. ====================================================
+
 console.log(
 	chalk.red(
 		" ________  ______   ______   __    __  ______  __    __   ______          ______    ______   __       __  ________"
@@ -60,27 +62,31 @@ console.log("");
 
 // Track the time of day (6 hours to fish before game is over)==================
 let time = 6;
+// Had to make minutes a separate variable because of random time ==============
 let minutes = 0;
+// Create the array to hold any fish that are kept =============================
 const keptFish = [];
+// Need a variable to keep track of fish kept ==================================
 let count = 0;
+// Variable to track kept fish values ==========================================
 let value = 0;
+// Variable to track kept fish weights =========================================
 let weight = 0;
+// Oooweeee dubloon counter! ===================================================
 let dubloonCount = 0;
-
-// userInput = "";
 
 // Start a loop to continue until the game is complete =========================
 // Limit the total weight of caught fish to 10lbs ==============================
 while (time < 12 && weight < 10) {
+	// This will display each time we loop through =============================
 	const display = `    The time is ${time}:${minutes}am. So far you've caught: ${count} fish, weighing a total of ${weight.toFixed(
 		2
 	)} lbs, with a value of $${value.toFixed(2)}`;
+	// Temporary array to house fish until they are kept or released ===========
 	const fish = {};
-	// Create a function to call random fish when needed ===========================
+	// Create a function to call random fish when needed =======================
 	function generateRandomFish() {
-		// Empty array to store the fish information ===================================
 		// Create objects to contain fish descriptors (2 of them) and type of fish =====
-
 		const fishColors = [
 			"Red",
 			"Blue",
@@ -129,14 +135,10 @@ while (time < 12 && weight < 10) {
 			" Clown-fish",
 		];
 
-		// Create objects to store fish weight and value with random integers ==
-
-		// Create object to contain weights ====================================
-		// const fishWeightsArray = [];
+		// Create variable to create random weights ============================
 		fishWeights = ((Math.random() * 1000) / 100).toFixed(2);
 
-		// Create object to contain values =====================================
-		// const fishValuesArray = [];
+		// Create variable to create random values =============================
 		let fishValues = ((Math.random() * 1000) / 100).toFixed(2);
 
 		// Create random integers for pulling random items from arrays =========
@@ -145,13 +147,14 @@ while (time < 12 && weight < 10) {
 		// Create random number for golden dubloon =============================
 		let dubloon = Math.floor(Math.random() * 10);
 
-		// Create a random time increment between 15 mins and 1.5 hour =========
+		// Create a random time increment between 15 mins and 45 mins ==========
 		function randomInteger(min, max) {
 			return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
 
 		// Create an empty string to store each of the fish adjectives =========
 		let string = "";
+		// Add fish adjectives to empty string =================================
 		string += fishColors[randomFish];
 		string += fishDescriptor[randomFish];
 		string += fishNames[randomFish];
@@ -160,14 +163,16 @@ while (time < 12 && weight < 10) {
 		fish.name = string;
 		fish.weight = fishWeights;
 		fish.value = fishValues;
+		// Call the randomTime function ========================================
 		randomTime = randomInteger(15, 45);
-
+		// Time shifter, keeps time looking like time ==========================
 		if (minutes + randomTime >= 60) {
 			time = time + 1;
 			minutes = 60 - minutes;
 		} else {
 			minutes += randomTime;
 		}
+		// Ooooweeee dubloons ==================================================
 		if (dubloon === 3) {
 			console.log("");
 			console.log(
@@ -175,20 +180,24 @@ while (time < 12 && weight < 10) {
 			);
 			dubloonCount++;
 		}
+		// End of the function, print out the results ==========================
 		return chalk.magenta(
 			`      You caught a ${string} fish, weighing ${fishWeights} lbs and valued at $${fishValues}`
 		);
 	}
-
+	// Create variable to easily call random fish....here boy! =================
 	const genFish = generateRandomFish();
 	console.log("");
+	// Print the time of day and fish caught information =======================
 	console.log(chalk.yellow(display));
 	console.log("");
 	userInput = prompt(
 		chalk.yellow.bold("                  Hit [Enter] to fish ")
 	);
+	// Clears the screen, keep it clean ========================================
 	console.clear();
 	console.log("");
+	// Its art.  ASCII art. ====================================================
 	console.log(
 		chalk.red(
 			" ________  ______   ______   __    __  ______  __    __   ______          ______    ______   __       __  ________"
@@ -236,22 +245,31 @@ while (time < 12 && weight < 10) {
 	);
 	console.log("");
 	console.log("");
+	// Display the random fish from our function ===============================
 	console.log(genFish);
 	console.log("");
+	// Decisions, Decisions ====================================================
 	console.log(
 		chalk.yellow.bold("           Do you want to (c)atch or (r)elease? ")
 	);
 	console.log("");
+	// Make a decision already! ================================================
 	userInput = prompt(chalk.red("                  > "));
 	console.log("");
+	// What did you decide to do? We will find out. ============================
 	if (userInput === "c") {
+		// Actually adds the entire fish data to the keptFish array ============
 		keptFish.push(fish);
+		// Its a string! Make it not a string! =================================
 		weight += parseFloat(fish.weight);
 		value += parseFloat(fish.value);
+		// Add 1 to the fish counter ===========================================
 		count++;
+		// As long as you haven't exceed the weight parameter, here's what you got ====================================================================
 		if (weight < 10) {
 			console.log(chalk.blue("           You kept a: ", fish.name));
 		}
+		// If you did exceed the weight, let it go, let it go ==================
 	} else {
 		console.log(chalk.red(`           You have released a ${fish.name}!`));
 	}
@@ -268,6 +286,7 @@ if (weight >= 10) {
 		)
 	);
 	console.log("");
+	// Create variable to hold weight and value totals =========================
 	let weightTotal = 0;
 	let valueTotal = 0;
 	for (i = 0; i < keptFish.length - 1; i++) {
@@ -281,6 +300,7 @@ if (weight >= 10) {
 			)
 		);
 		console.log("");
+		// Track running total of weight and value for later output ============
 		weightTotal += Number(fishObject.weight);
 		valueTotal += Number(fishObject.value);
 	}
@@ -293,6 +313,7 @@ if (weight >= 10) {
 		)
 	);
 	console.log("");
+	// Create a variable to add dubloon value to the total value ===============
 	valueTotal = dubloonCount * 50 + valueTotal;
 	console.log(
 		chalk.red(
@@ -321,12 +342,14 @@ if (time === 12) {
 		)
 	);
 	console.log("");
+	// How many fish did I catch? 1 fish, 2 fish, red fish, blue fish ==========
 	console.log(
 		chalk.underline.yellow(
 			`                           You caught ${count} fish:                                            `
 		)
 	);
 	console.log("");
+	// Create variable to hold weight and value totals =========================
 	let weightTotal = 0;
 	let valueTotal = 0;
 	for (i = 0; i < keptFish.length; i++) {
@@ -339,6 +362,7 @@ if (time === 12) {
 				)}`
 			)
 		);
+		// Track running total of weight and value for later output ============
 		weightTotal += Number(fishObject.weight);
 		valueTotal += Number(fishObject.value);
 	}
@@ -351,6 +375,7 @@ if (time === 12) {
 		)
 	);
 	console.log("");
+	// Create a variable to add dubloon value to the total value ===============
 	valueTotal = dubloonCount * 50 + valueTotal;
 	console.log(
 		chalk.red(
