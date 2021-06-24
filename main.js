@@ -70,7 +70,7 @@ let dubloonCount = 0;
 // userInput = "";
 
 // Start a loop to continue until the game is complete =========================
-
+// Limit the total weight of caught fish to 10lbs ==============================
 while (time < 12 && weight < 10) {
 	const display = `    The time is ${time}:${minutes}am. So far you've caught: ${count} fish, weighing a total of ${weight.toFixed(
 		2
@@ -271,6 +271,7 @@ if (weight >= 10) {
 	let valueTotal = 0;
 	for (i = 0; i < keptFish.length - 1; i++) {
 		let fishObject = keptFish[i];
+		// When game ends, display all caught fish, weight, and value ==========
 		console.log(
 			chalk.cyan.bold.italic(
 				`           **  ${fishObject.name}, ${fishObject.weight}, ${Number(
@@ -284,6 +285,7 @@ if (weight >= 10) {
 	}
 	console.log("");
 	console.log("");
+	// Display the users total caught fish, combined weight, and their value ===
 	console.log(
 		chalk.red(
 			`             The total weight caught was: ${weightTotal.toFixed(2)} lbs.`
@@ -327,6 +329,7 @@ if (time === 12) {
 	let valueTotal = 0;
 	for (i = 0; i < keptFish.length; i++) {
 		let fishObject = keptFish[i];
+		// When game ends, display all caught fish, weight, and value ==========
 		console.log(
 			chalk.cyan.bold.italic(
 				`           **  ${fishObject.name}, ${fishObject.weight}, ${Number(
@@ -339,6 +342,7 @@ if (time === 12) {
 	}
 	console.log("");
 	console.log("");
+	// Display the users total caught fish, combined weight, and their value ===
 	console.log(
 		chalk.red(
 			`             The total weight caught was: ${weightTotal.toFixed(2)} lbs.`
@@ -364,8 +368,3 @@ if (time === 12) {
 	console.log("");
 	console.log(prompt(chalk.yellow(`Press [enter] to end`)));
 }
-// Limit the total weight of caught fish to 10lbs ==============================
-
-// Display the users total caught fish, combined weight, and their value =======
-
-// When game ends, display all caught fish, weight, and value ==================
