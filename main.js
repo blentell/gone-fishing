@@ -256,6 +256,7 @@ while (time < 12 && weight < 10) {
 		console.log(chalk.red(`           You have released a ${fish.name}!`));
 	}
 }
+// Sets a stopping point if the weight will exceed 10 lbs with a catch =========
 if (weight >= 10) {
 	console.log(
 		chalk.bgRed(`This fish would put you over 10lbs, so you release it.`)
@@ -311,6 +312,7 @@ if (weight >= 10) {
 	console.log("");
 	console.log(prompt(chalk.yellow(`Press [enter] to end`)));
 }
+// Sets a stopping point if the time reaches 12 ================================
 if (time === 12) {
 	console.log("");
 	console.log(
