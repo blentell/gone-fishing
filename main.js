@@ -65,6 +65,7 @@ const keptFish = [];
 let count = 0;
 let value = 0;
 let weight = 0;
+let dubloonCount = 0;
 
 // userInput = "";
 
@@ -141,6 +142,9 @@ while (time < 12 && weight < 10) {
 		// Create random integers for pulling random items from arrays =========
 		let randomFish = Math.floor(Math.random() * 13);
 
+		// Create random number for golden dubloon =============================
+		let dubloon = Math.floor(Math.random() * 10);
+
 		// Create a random time increment between 15 mins and 1.5 hour =========
 		function randomInteger(min, max) {
 			return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -163,6 +167,13 @@ while (time < 12 && weight < 10) {
 			minutes = 60 - minutes;
 		} else {
 			minutes += randomTime;
+		}
+		if (dubloon === 3) {
+			console.log("");
+			console.log(
+				chalk.red("           You have found a golden dubloon worth $50!!!")
+			);
+			dubloonCount++;
 		}
 		return chalk.magenta(
 			`      You caught a ${string} fish, weighing ${fishWeights} lbs and valued at $${fishValues}`
@@ -250,7 +261,11 @@ if (weight >= 10) {
 		chalk.bgRed(`This fish would put you over 10lbs, so you release it.`)
 	);
 	console.log("");
-	console.log(chalk.underline.yellow(`You caught ${count - 1} fish:`));
+	console.log(
+		chalk.underline.yellow(
+			`                           You caught ${count} fish:                                            `
+		)
+	);
 	console.log("");
 	let weightTotal = 0;
 	let valueTotal = 0;
@@ -258,7 +273,9 @@ if (weight >= 10) {
 		let fishObject = keptFish[i];
 		console.log(
 			chalk.cyan.bold.italic(
-				`**  ${fishObject.name}, ${fishObject.weight}, ${fishObject.value}`
+				`           **  ${fishObject.name}, ${fishObject.weight}, ${Number(
+					fishObject.value
+				)}`
 			)
 		);
 		console.log("");
@@ -268,11 +285,24 @@ if (weight >= 10) {
 	console.log("");
 	console.log("");
 	console.log(
-		chalk.red(`The total weight caught was: ${weightTotal.toFixed(2)} lbs.`)
+		chalk.red(
+			`             The total weight caught was: ${weightTotal.toFixed(2)} lbs.`
+		)
+	);
+	console.log("");
+	valueTotal = dubloonCount * 50 + valueTotal;
+	console.log(
+		chalk.red(
+			`             The total value caught was: $${valueTotal.toFixed(2)}.`
+		)
 	);
 	console.log("");
 	console.log(
-		chalk.red(`The total value caught was: $${valueTotal.toFixed(2)}.`)
+		chalk.red(
+			`             You found a total of ${dubloonCount} dubloons adding $${
+				dubloonCount * 50
+			} to your total.`
+		)
 	);
 	console.log("");
 	console.log("");
@@ -281,27 +311,53 @@ if (weight >= 10) {
 }
 if (time === 12) {
 	console.log("");
-	console.log(chalk.magenta.bold.underline(`The time is 12:00pm. Times up!`));
-	console.log(chalk.underline.yellow(`You caught ${count} fish:`));
+	console.log(
+		chalk.magenta.bold.underline(
+			`                      The time is 12:00pm. Times up!                                   `
+		)
+	);
+	console.log("");
+	console.log(
+		chalk.underline.yellow(
+			`                           You caught ${count} fish:                                            `
+		)
+	);
 	console.log("");
 	let weightTotal = 0;
 	let valueTotal = 0;
 	for (i = 0; i < keptFish.length; i++) {
 		let fishObject = keptFish[i];
-		console.log(chalk.cyan.bold.italic(
-			`${fishObject.name}, ${fishObject.weight}, ${fishObject.value}`
-		));
+		console.log(
+			chalk.cyan.bold.italic(
+				`           **  ${fishObject.name}, ${fishObject.weight}, ${Number(
+					fishObject.value
+				)}`
+			)
+		);
 		weightTotal += Number(fishObject.weight);
 		valueTotal += Number(fishObject.value);
 	}
 	console.log("");
 	console.log("");
 	console.log(
-		chalk.red(`The total weight caught was: ${weightTotal.toFixed(2)} lbs.`)
+		chalk.red(
+			`             The total weight caught was: ${weightTotal.toFixed(2)} lbs.`
+		)
+	);
+	console.log("");
+	valueTotal = dubloonCount * 50 + valueTotal;
+	console.log(
+		chalk.red(
+			`             The total value caught was: $${valueTotal.toFixed(2)}.`
+		)
 	);
 	console.log("");
 	console.log(
-		chalk.red(`The total value caught was: $${valueTotal.toFixed(2)}.`)
+		chalk.red(
+			`             You found a total of ${dubloonCount} dubloons adding $${
+				dubloonCount * 50
+			} to your total.`
+		)
 	);
 	console.log("");
 	console.log("");
